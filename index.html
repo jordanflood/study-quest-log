@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FFXIV Study Daily Quest Log</title>
+<style>
+  :root { color-scheme: dark; --bg:#11141b; --panel:#1b202b; --panel2:#242b38; --text:#f2f4f8; --muted:#adb6c6; --accent:#d4aa5a; --green:#65c18c; --border:#394253; }
+  *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top,#222a39 0,var(--bg) 42%);color:var(--text);min-height:100vh}
+  main{max-width:900px;margin:auto;padding:28px 18px 60px} header{text-align:center;margin-bottom:24px} h1{margin:0 0 8px;font-size:clamp(1.8rem,5vw,3rem)} .subtitle{color:var(--muted)}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0} button{border:1px solid var(--border);border-radius:9px;padding:10px 14px;background:var(--panel2);color:var(--text);cursor:pointer;font-weight:650} button:hover{border-color:var(--accent)}
+  .progress-wrap{background:#0e1117;border:1px solid var(--border);border-radius:999px;overflow:hidden;height:15px;margin:8px 0 4px}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--green));transition:width .25s}.progress-label{color:var(--muted);text-align:center;font-size:.9rem}
+  section{background:rgba(27,32,43,.96);border:1px solid var(--border);border-radius:14px;margin:16px 0;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.18)} section h2{margin:0;padding:15px 18px;background:var(--panel2);border-bottom:1px solid var(--border);font-size:1.1rem}.content{padding:10px 18px 16px}
+  label.task{display:flex;align-items:flex-start;gap:11px;padding:10px 4px;border-bottom:1px solid rgba(57,66,83,.55);cursor:pointer} label.task:last-child{border-bottom:0} input[type="checkbox"]{margin-top:3px;width:19px;height:19px;accent-color:var(--green);flex:0 0 auto} input:checked+span{text-decoration:line-through;color:#798393}.task strong{color:#fff}.note{color:var(--muted);font-size:.9rem;margin:8px 3px;line-height:1.45}
+  .day-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}.day{padding:10px;background:#151923;border:1px solid var(--border);border-radius:9px}.day b{color:var(--accent)}.clear{border-color:rgba(101,193,140,.8);box-shadow:0 0 0 1px rgba(101,193,140,.12),0 8px 30px rgba(101,193,140,.08)} footer{color:var(--muted);text-align:center;font-size:.82rem;margin-top:22px}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>⚔️ Study Daily Quest Log</h1>
+  <div class="subtitle">Cloud & Infrastructure Expansion</div>
+  <div class="progress-wrap"><div id="dailyProgress" class="progress"></div></div>
+  <div id="dailyLabel" class="progress-label">Daily clear: 0%</div>
+  <div class="toolbar"><button onclick="resetDaily()">Daily Reset</button><button onclick="resetWeekly()">Weekly Reset</button><button onclick="resetAll()">Reset Everything</button></div>
+</header>
+<section id="dailySection"><h2>🟥 Main Scenario Quest — 45–60 min</h2><div class="content"><label class="task"><input data-group="daily" type="checkbox"><span><strong>Complete one meaningful course section</strong><br><small>Master’s work if urgent; otherwise IBM DevOps. AWS Cloud Support 1–2 times weekly.</small></span></label></div></section>
+<section><h2>🟦 Levelling Roulette — 30–45 min</h2><div class="content"><label class="task"><input data-group="daily" type="checkbox"><span><strong>Complete today’s hands-on technical duty</strong></span></label><div class="day-grid"><div class="day"><b>Monday</b><br>Linux administration</div><div class="day"><b>Tuesday</b><br>Networking</div><div class="day"><b>Wednesday</b><br>Linux troubleshooting or Bash</div><div class="day"><b>Thursday</b><br>AWS fundamentals</div><div class="day"><b>Friday</b><br>Support-ticket scenario</div><div class="day"><b>Saturday</b><br>Portfolio or project work</div><div class="day"><b>Sunday</b><br>Review and plan next reset</div></div></div></section>
+<section><h2>🟩 Grand Company Turn-In — 10 min</h2><div class="content"><label class="task"><input data-group="daily" type="checkbox"><span><strong>Produce one visible piece of evidence</strong><br><small>GitHub commit, README improvement, lab notes, commands, screenshots, or troubleshooting summary.</small></span></label></div></section>
+<section><h2>🟨 Beast Tribe Quest — Optional 10–15 min</h2><div class="content"><label class="task"><input data-group="bonus" type="checkbox"><span><strong>Complete one language session</strong><br><small>Choose Spanish or Russian. Do not require both.</small></span></label></div></section>
+<section><h2>🛡️ Duty Support — Low-Energy Clear</h2><div class="content"><label class="task"><input data-group="low" type="checkbox"><span>10 minutes of your current course</span></label><label class="task"><input data-group="low" type="checkbox"><span>10 minutes practising one command or technical concept</span></label><label class="task"><input data-group="low" type="checkbox"><span>Write three sentences explaining what you learned</span></label><div class="note">Completing all three counts as a legitimate daily clear.</div></div></section>
+<section><h2>📜 Weekly Challenge Log</h2><div class="content"><label class="task"><input data-group="weekly" type="checkbox"><span>4 Main Scenario sessions</span></label><label class="task"><input data-group="weekly" type="checkbox"><span>4 hands-on technical duties</span></label><label class="task"><input data-group="weekly" type="checkbox"><span>3 GitHub commits</span></label><label class="task"><input data-group="weekly" type="checkbox"><span>1 completed troubleshooting write-up</span></label><label class="task"><input data-group="weekly" type="checkbox"><span>1 larger portfolio improvement</span></label><label class="task"><input data-group="weekly" type="checkbox"><span>2 AWS sessions</span></label><label class="task"><input data-group="weekly" type="checkbox"><span>3 language sessions</span></label><label class="task"><input data-group="weekly" type="checkbox"><span>Review what you can now do that you could not do last week</span></label><div class="progress-wrap"><div id="weeklyProgress" class="progress"></div></div><div id="weeklyLabel" class="progress-label">Weekly log: 0%</div></div></section>
+<footer>Progress is saved locally in your browser. Opening it in another browser or device starts a separate save.</footer>
+</main>
+<script>
+const boxes=[...document.querySelectorAll('input[type="checkbox"]')];
+boxes.forEach((box,index)=>{box.dataset.key=`quest-${index}`;box.checked=localStorage.getItem(box.dataset.key)==='1';box.addEventListener('change',()=>{localStorage.setItem(box.dataset.key,box.checked?'1':'0');updateProgress();});});
+function pct(items){return items.length?Math.round(items.filter(x=>x.checked).length/items.length*100):0}
+function updateProgress(){const daily=boxes.filter(x=>x.dataset.group==='daily'),low=boxes.filter(x=>x.dataset.group==='low'),weekly=boxes.filter(x=>x.dataset.group==='weekly');const normalClear=daily.every(x=>x.checked),lowClear=low.every(x=>x.checked);const dailyPct=Math.max(pct(daily),lowClear?100:pct(low));document.getElementById('dailyProgress').style.width=`${dailyPct}%`;document.getElementById('dailyLabel').textContent=(normalClear||lowClear)?'Daily clear complete ✓':`Daily clear: ${dailyPct}%`;document.getElementById('weeklyProgress').style.width=`${pct(weekly)}%`;document.getElementById('weeklyLabel').textContent=`Weekly log: ${pct(weekly)}%`;document.getElementById('dailySection').classList.toggle('clear',normalClear||lowClear)}
+function resetGroups(groups){boxes.filter(x=>groups.includes(x.dataset.group)).forEach(x=>{x.checked=false;localStorage.removeItem(x.dataset.key)});updateProgress()}
+function resetDaily(){resetGroups(['daily','bonus','low'])} function resetWeekly(){resetGroups(['weekly'])} function resetAll(){if(confirm('Reset all study quest progress?'))resetGroups(['daily','bonus','low','weekly'])} updateProgress();
+</script>
+</body>
+</html>
